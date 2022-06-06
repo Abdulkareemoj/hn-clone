@@ -56,14 +56,14 @@ const link = split(
 
 const client = new ApolloClient({
   link,
-  cache: new InMemoryCache()
+  cache: new InMemoryCache({
+    typePolicies: {
+      Link: {
+        keyFields: ["id"]
+      }
+    }
+  })
 });
-
-const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache()
-});
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
