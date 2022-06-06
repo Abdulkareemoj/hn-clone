@@ -2,7 +2,7 @@ import React from 'react';
 import { AUTH_TOKEN } from '../constants';
 import { useMutation, gql } from '@apollo/client';
 import { timeDifferenceForDate } from './utils';
-import { FEED_QUERY } from './LinkList';
+import { FEED_QUERY } from './Linklist';
 
 const VOTE_MUTATION = gql`
   mutation VoteMutation($linkId: ID!) {
@@ -28,8 +28,7 @@ const Links = (props) => {
   const { link } = props;
   const authToken = localStorage.getItem(AUTH_TOKEN);
 
-  const Links = (props) => {
-    // ...
+
     const [vote] = useMutation(VOTE_MUTATION, {
       variables: {
         linkId: link.id
@@ -61,8 +60,7 @@ const Links = (props) => {
     });
   
     // ...
-  };
-    
+
     return (
       <div className="flex mt2 items-start">
         <div className="flex items-center">

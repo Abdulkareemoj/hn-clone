@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
-import { FEED_QUERY } from './LinkList';
+import { FEED_QUERY } from './Linklist';
 
 
 const CREATE_LINK_MUTATION = gql`
@@ -20,7 +20,7 @@ const CREATE_LINK_MUTATION = gql`
 
 
 
-const CreateLink = () => {
+const Createlink = () => {
     const navigate = useNavigate();
     const [formState, setFormState] = useState({
         description: '',
@@ -91,4 +91,4 @@ const CreateLink = () => {
   );
 };
 
-export default CreateLink;
+export default Createlink;

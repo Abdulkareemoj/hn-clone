@@ -1,51 +1,63 @@
-import React, { useState } from 'react';
-import { useMutation, gql } from '@apollo/client';
-import { useNavigate } from 'react-router-dom';
-import { AUTH_TOKEN } from '../constants';
+import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {gql, useMutation} from "@apollo/client";
+import {AUTH_TOKEN} from "../constants";
 
 const SIGNUP_MUTATION = gql`
-  mutation SignupMutation(
-    $email: String!
-    $password: String!
-    $name: String!
-  ) {
-    signup(
-      email: $email
-      password: $password
-      name: $name
+    mutation SignupMutation(
+        $email: String!
+        $password: String!
+        $name: String!
     ) {
-      token
+        signup(
+            email: $email
+            password: $password
+            name: $name
+        ) {
+            token
+        }
     }
-  }
 `;
 
 const LOGIN_MUTATION = gql`
-  mutation LoginMutation(
-    $email: String!
-    $password: String!
-  ) {
-    login(email: $email, password: $password) {
-      token
+    mutation LoginMutation(
+        $email: String!
+        $password: String!
+    ) {
+        login(email: $email, password: $password) {
+            token
+        }
     }
-  }
-`;const [login] = useMutation(LOGIN_MUTATION, {
+`;
+
+const Login = () => {
+
+  const navigate = useNavigate();
+  const [formState, setFormState] = useState({
+    login: true,
+    email: '',
+    password: '',
+    name: ''
+  });
+
+  const [login] = useMutation(LOGIN_MUTATION, {
     variables: {
       email: formState.email,
       password: formState.password
     },
-    onCompleted: ({ login }) => {
+    onCompleted: ({login}) => {
       localStorage.setItem(AUTH_TOKEN, login.token);
       navigate('/');
     }
   });
-  
+
   const [signup] = useMutation(SIGNUP_MUTATION, {
     variables: {
       name: formState.name,
       email: formState.email,
       password: formState.password
     },
-    onCompleted: ({ signup }) => {
+    onCompleted: ({signup}) => {
       localStorage.setItem(AUTH_TOKEN, signup.token);
       navigate('/');
     }
@@ -94,26 +106,26 @@ const LOGIN_MUTATION = gql`
         />
       </div>
       <div className="flex mt3">
-  <button
-    className="pointer mr2 button"
-    onClick={formState.login ? login : signup}
-  >
-    {formState.login ? 'login' : 'create account'}
-  </button>
-  <button
-    className="pointer button"
-    onClick={(e) =>
-      setFormState({
-        ...formState,
-        login: !formState.login
-      })
-    }
-  >
-    {formState.login
-      ? 'need to create an account?'
-      : 'already have an account?'}
-  </button>
-</div>
+        <button
+          className="pointer mr2 button"
+          onClick={formState.login ? login : signup}
+        >
+          {formState.login ? 'login' : 'create account'}
+        </button>
+        <button
+          className="pointer button"
+          onClick={(e) =>
+            setFormState({
+              ...formState,
+              login: !formState.login
+            })
+          }
+        >
+          {formState.login
+            ? 'need to create an account?'
+            : 'already have an account?'}
+        </button>
+      </div>
     </div>
   );
 };
