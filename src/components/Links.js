@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMutation, gql } from '@apollo/client';
-import { timeDifferenceForDate } from './utils';
+import { timeDifferenceForDate } from './time';
 import { FEED_QUERY } from './Linklist';
 import { AUTH_TOKEN, LINKS_PER_PAGE } from '../constants';
 

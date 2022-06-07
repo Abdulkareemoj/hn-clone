@@ -2,8 +2,8 @@ import React from 'react';
 import Createlink from './components/Createlink';
 import Linklist from './components/Linklist';
 import Header from './components/Header';
-import Login from './Login';
-import Search from './Search';
+import Login from './components/Login';
+import Search from './components/Search';
 import {Navigate, Route, Routes} from 'react-router-dom';
 
 
